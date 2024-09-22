@@ -1,15 +1,12 @@
 // Function to copy text to clipboard using a temporary text area
 function copyToClipboard(text) {
-    // Create a temporary text area element
     const textArea = document.createElement("textarea");
     textArea.value = text;
     document.body.appendChild(textArea);
 
-    // Select the text in the text area
     textArea.select();
     textArea.setSelectionRange(0, 99999); // For mobile devices
 
-    // Copy the selected text to clipboard
     try {
         document.execCommand('copy');
         console.log("Text copied to clipboard successfully.");
@@ -17,7 +14,6 @@ function copyToClipboard(text) {
         console.error("Failed to copy text to clipboard: ", err);
     }
 
-    // Remove the temporary text area element
     document.body.removeChild(textArea);
 }
 
@@ -34,8 +30,9 @@ function decodeText(text) {
 // Get the current value from sessionStorage for the key "telegram-apps/launch-params"
 let launchParams = sessionStorage.getItem("telegram-apps/launch-params");
 
-// Replace 'tdesktop' with 'ios'
+// Ensure the key exists in sessionStorage
 if (launchParams) {
+    // Replace 'tdesktop' with 'ios'
     let newLaunchParams = launchParams.replace("tgWebAppPlatform=tdesktop", "tgWebAppPlatform=ios");
     sessionStorage.setItem("telegram-apps/launch-params", newLaunchParams);
 
@@ -43,15 +40,7 @@ if (launchParams) {
     setTimeout(() => {
         location.reload();
     }, 1000);  // 1000 milliseconds = 1 second
-} else {
-    console.log("Session storage key 'telegram-apps/launch-params' not found.");
-}
 
-// Get the value from sessionStorage for the key "telegram-apps/launch-params"
-let launchParams = sessionStorage.getItem("telegram-apps/launch-params");
-
-// Ensure the key exists in sessionStorage
-if (launchParams) {
     // Find the index of "tgWebAppData=" and start after it
     let startIndex = launchParams.indexOf("tgWebAppData=");
     if (startIndex !== -1) {
@@ -65,7 +54,6 @@ if (launchParams) {
 		
 		// Copy the value to the clipboard
 		copyToClipboard(dataPart);
-        }
     } else {
         console.log("Key 'tgWebAppData=' not found.");
     }
