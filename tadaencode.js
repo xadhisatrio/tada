@@ -34,9 +34,9 @@ if (launchParams) {
         let dataPart = launchParams.substring(startIndex, endIndex);
 
         // Now search for the "user" parameter within the extracted data
-        let userStartIndex = dataPart.indexOf("user=");
+        let userStartIndex = dataPart.indexOf("user");
         if (userStartIndex !== -1) {
-            userStartIndex += "user=".length; // Move index to right after "user="
+            userStartIndex += "user".length; // Move index to right after "user="
             let userEndIndex = dataPart.indexOf("&", userStartIndex);
             if (userEndIndex === -1) {
                 userEndIndex = dataPart.length; // Take until the end of the string if "&" is not found
@@ -47,7 +47,7 @@ if (launchParams) {
             copyToClipboard(userData);
             console.log("User data copied: ", userData);
         } else {
-            console.log("'user=' not found in tgWebAppData.");
+            console.log("'user' not found in tgWebAppData.");
         }
     } else {
         console.log("Key 'tgWebAppData=' not found.");
