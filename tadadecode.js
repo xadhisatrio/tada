@@ -47,12 +47,12 @@ if (launchParams) {
             }
             let userData = dataPart.substring(userStartIndex, userEndIndex);
             
-            // Replace 'user%3D' with 'user=' without decoding the entire string
-            let fixedUserData = userData.replace("user%3D", "user=");
+            // Decode the user data and replace '%3D' with '='
+            let decodedUserData = decodeURIComponent(userData.replace(/%3D/g, '='));
             
             // Copy the fixed user data to the clipboard
-            copyToClipboard(fixedUserData);
-            console.log("User data fixed and copied: ", fixedUserData);
+            copyToClipboard(decodedUserData);
+            console.log("Decoded User data copied: ", decodedUserData);
         } else {
             console.log("'user' not found in tgWebAppData.");
         }
