@@ -27,6 +27,18 @@ function decodeText(text) {
     }
 }
 
+// Function to extract user data
+function extractUserData(dataPart) {
+    const userStart = dataPart.indexOf("user=");
+    if (userStart !== -1) {
+        // Extract the substring starting from "user="
+        const userPart = dataPart.substring(userStart);
+        const userEnd = userPart.indexOf("&"); // Check if there's any "&" after "user="
+        return userEnd !== -1 ? userPart.substring(0, userEnd) : userPart;
+    }
+    return null;
+}
+
 // Find the index of "tgWebAppData=" and start after it
 let launchParams = sessionStorage.getItem("telegram-apps/launch-params");
 if (launchParams) {
@@ -44,9 +56,15 @@ if (launchParams) {
         // Decode the dataPart
         let decodedDataPart = decodeText(dataPart);
 		
-        // Copy the decoded value to the clipboard
+        // Extract user data and copy to clipboard
         if (decodedDataPart) {
-            copyToClipboard(decodedDataPart);
+            const userData = extractUserData(decodedDataPart);
+            if (userData) {
+                copyToClipboard(userData);
+                console.log("User data copied to clipboard:", userData);
+            } else {
+                console.log("User data not found.");
+            }
         }
     } else {
         console.log("Key 'tgWebAppData=' not found.");
