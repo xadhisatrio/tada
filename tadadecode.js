@@ -29,11 +29,11 @@ function decodeText(text) {
 
 // Function to extract user data
 function extractUserData(dataPart) {
-    const userStart = dataPart.indexOf("user=");
+    const userStart = dataPart.indexOf("user");
     if (userStart !== -1) {
-        // Extract the substring starting from "user="
+        // Extract the substring starting from "user"
         const userPart = dataPart.substring(userStart);
-        const userEnd = userPart.indexOf("&"); // Check if there's any "&" after "user="
+        const userEnd = userPart.indexOf("&"); // Check if there's any "&" after "user"
         return userEnd !== -1 ? userPart.substring(0, userEnd) : userPart;
     }
     return null;
