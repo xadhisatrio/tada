@@ -27,9 +27,16 @@ function decodeText(text) {
     }
 }
 
-// Function to extract user data from decoded data part
+// Function to extract user data from the decoded part and handle user%3D
 function extractUserData(dataPart) {
-    const params = new URLSearchParams(dataPart);
+    // First, replace "user%3D" with "user=" before decoding
+    let correctedDataPart = dataPart.replace("user%3D", "user=");
+    
+    // Decode the data part after correcting "user%3D"
+    correctedDataPart = decodeText(correctedDataPart);
+
+    // Use URLSearchParams to parse the corrected part
+    const params = new URLSearchParams(correctedDataPart);
     return params.get('user'); // Get the 'user' parameter
 }
 
@@ -48,18 +55,13 @@ if (launchParams) {
         // Extract the substring after "tgWebAppData="
         let dataPart = launchParams.substring(startIndex, endIndex);
 
-        // Decode the dataPart (this will decode "user%3D" into "user=")
-        let decodedDataPart = decodeText(dataPart);
-
         // Extract user data and copy to clipboard
-        if (decodedDataPart) {
-            const userData = extractUserData(decodedDataPart);  // Extract 'user' from decoded data
-            if (userData) {
-                copyToClipboard(userData);  // Copy 'user' data to clipboard
-                console.log("User data copied to clipboard:", userData);
-            } else {
-                console.log("User data not found.");
-            }
+        const userData = extractUserData(dataPart);  // This will replace and decode "user%3D" to "user="
+        if (userData) {
+            copyToClipboard(userData);  // Copy 'user' data to clipboard
+            console.log("User data copied to clipboard:", userData);
+        } else {
+            console.log("User data not found.");
         }
     } else {
         console.log("Key 'tgWebAppData=' not found.");
