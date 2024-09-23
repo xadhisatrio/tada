@@ -30,8 +30,8 @@ function decodeText(text) {
     }
 }
 
-// Get the value from sessionStorage for the key "'telegram-apps/launch-params"
-let launchParams = sessionStorage.getItem("'telegram-apps/launch-params");
+// Get the value from sessionStorage for the key "telegram-apps/launch-params"
+let launchParams = sessionStorage.getItem("telegram-apps/launch-params");
 
 // Ensure the key exists in sessionStorage
 if (launchParams) {
