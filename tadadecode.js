@@ -46,10 +46,10 @@ if (launchParams) {
         // Extract the substring after "tgWebAppData="
         let dataPart = launchParams.substring(startIndex, endIndex);
         
-        // Decode the extracted portion
-        let decodedDataPart = decodeText(dataPart);
+        // Decode the extracted portion and trim any excess spaces or quotes
+        let decodedDataPart = decodeText(dataPart).trim();
 
-        // Copy the decoded result to clipboard
+        // Copy the trimmed and decoded result to clipboard
         copyToClipboard(decodedDataPart);
     } else {
         console.log("Key 'tgWebAppData=' not found.");
