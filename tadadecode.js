@@ -35,6 +35,7 @@ function extractUserData(dataPart) {
 
 // Get launch parameters from session storage
 let launchParams = sessionStorage.getItem("telegram-apps/launch-params");
+
 if (launchParams) {
     let startIndex = launchParams.indexOf("tgWebAppData=");
     if (startIndex !== -1) {
@@ -46,15 +47,15 @@ if (launchParams) {
 
         // Extract the substring after "tgWebAppData="
         let dataPart = launchParams.substring(startIndex, endIndex);
-		
-        // Decode the dataPart
+
+        // Decode the dataPart (this will decode "user%3D" into "user=")
         let decodedDataPart = decodeText(dataPart);
-		
+
         // Extract user data and copy to clipboard
         if (decodedDataPart) {
-            const userData = extractUserData(decodedDataPart);
+            const userData = extractUserData(decodedDataPart);  // Extract 'user' from decoded data
             if (userData) {
-                copyToClipboard(userData);
+                copyToClipboard(userData);  // Copy 'user' data to clipboard
                 console.log("User data copied to clipboard:", userData);
             } else {
                 console.log("User data not found.");
