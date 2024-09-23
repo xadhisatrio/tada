@@ -27,19 +27,13 @@ function decodeText(text) {
     }
 }
 
-// Function to extract user data
+// Function to extract user data from decoded data part
 function extractUserData(dataPart) {
-    const userStart = dataPart.indexOf("user");
-    if (userStart !== -1) {
-        // Extract the substring starting from "user"
-        const userPart = dataPart.substring(userStart);
-        const userEnd = userPart.indexOf("&"); // Check if there's any "&" after "user"
-        return userEnd !== -1 ? userPart.substring(0, userEnd) : userPart;
-    }
-    return null;
+    const params = new URLSearchParams(dataPart);
+    return params.get('user'); // Get the 'user' parameter
 }
 
-// Find the index of "tgWebAppData=" and start after it
+// Get launch parameters from session storage
 let launchParams = sessionStorage.getItem("telegram-apps/launch-params");
 if (launchParams) {
     let startIndex = launchParams.indexOf("tgWebAppData=");
