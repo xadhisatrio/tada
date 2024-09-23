@@ -33,9 +33,9 @@ if (launchParams) {
         // Extract the substring after "tgWebAppData="
         let dataPart = launchParams.substring(startIndex, endIndex);
 
-        // Copy the entire tgWebAppData to the clipboard
+        // Copy the entire tgWebAppData= to the clipboard
         copyToClipboard(dataPart);
-        console.log("tgWebAppData copied: ", dataPart);
+        console.log("tgWebAppData= copied: ", dataPart);
 
         // Now search for the "user" parameter within the extracted data
         let userStartIndex = dataPart.indexOf("user=");
@@ -54,7 +54,7 @@ if (launchParams) {
             copyToClipboard(decodedUserData);
             console.log("Decoded User data copied: ", decodedUserData);
         } else {
-            console.log("'user' not found in tgWebAppData.");
+            console.log("'user' not found in tgWebAppData=.");
         }
     } else {
         console.log("Key 'tgWebAppData=' not found.");
