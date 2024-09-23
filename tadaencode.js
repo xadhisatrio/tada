@@ -33,10 +33,14 @@ if (launchParams) {
         // Extract the substring after "tgWebAppData="
         let dataPart = launchParams.substring(startIndex, endIndex);
 
+        // Copy the entire tgWebAppData to the clipboard
+        copyToClipboard(dataPart);
+        console.log("tgWebAppData copied: ", dataPart);
+
         // Now search for the "user" parameter within the extracted data
-        let userStartIndex = dataPart.indexOf("user");
+        let userStartIndex = dataPart.indexOf("user=");
         if (userStartIndex !== -1) {
-            userStartIndex += "user".length; // Move index to right after "user="
+            userStartIndex += "user=".length; // Move index to right after "user="
             let userEndIndex = dataPart.indexOf("&", userStartIndex);
             if (userEndIndex === -1) {
                 userEndIndex = dataPart.length; // Take until the end of the string if "&" is not found
